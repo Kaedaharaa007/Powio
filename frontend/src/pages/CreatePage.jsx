@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Navigate, NavLink, useNavigate } from 'react-router'
 import { TiArrowBack } from "react-icons/ti";
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 function CreatePage() {
 
@@ -28,10 +29,16 @@ function CreatePage() {
         try {
             const res = await axios.post('http://localhost:8000/api/devices/create', device)
             console.log(res.data)
+            toast.success("Device added succsessfully")
+            navigate('/devices')
         } catch (error) {
             console.log(error)
+            if(error.response.status === 500){
+                toast.error("Failed to add device")
+            }else if(error.response.status === 400){
+                toast.error(error.response.data.message)
+            }
         }
-        navigate('/devices')
     }
 
   return (

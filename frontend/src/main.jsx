@@ -9,6 +9,7 @@ import './App.css'
 import NavigationBar from './components/NavigationBar.jsx';
 import MainPage from './pages/MainPage.jsx';
 import CreatePage from './pages/CreatePage.jsx';
+import toast, { Toaster } from 'react-hot-toast'
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <div className='bg-gray-300 min-h-screen'>
       <RouterProvider router={router} />
+      <Toaster/>
     </div>
   </StrictMode>,
 )

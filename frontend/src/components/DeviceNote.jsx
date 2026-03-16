@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { GiElectric } from "react-icons/gi";
 import Button from './Button';
+import { MdDeleteOutline } from "react-icons/md";
 
 function DeviceNote({name,status,location,usage}) {
 
@@ -41,6 +42,10 @@ function DeviceNote({name,status,location,usage}) {
         <div className='flex flex-row justify-between'>
           <p>Power Usage</p>
           <p>{usage} W</p>
+        </div>
+        <div className='flex flex-row w-fit border-red-500 border-2 ml-auto rounded-2xl p-1 text-red-500 cursor-pointer items-center justify-center mt-2'>
+          <MdDeleteOutline className='text-2xl'/>
+          Delete device
         </div>
       </div>
     </div>
