@@ -1,0 +1,13 @@
+npm create vite@latest
+cd {project_name}
+
+npm install
+npm run dev
+
+#TAILWIND
+npm install vite@6 @vitejs/plugin-react@4
+npm install tailwindcss @tailwindcss/vite
+
+#VITE.CONFIG.JS
+import tailwindcss from '@tailwindcss/vite'
+plugins: [react(), tailwindcss()],

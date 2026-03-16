@@ -1,0 +1,16 @@
+npm init -y
+
+type: "module'
+test -> start: "nodemon [your file name].js'
+
+#install depedencies
+npm i express //streamline building backend server, API
+npm i nodemon //detect file changes during development
+npm i mongoose //database
+npm i dotenv //manage app config by loading environment variables from .env file to app runtime
+npm i body-parser // read and process the raw data stream from an incoming HTTP request and transform it into a usable format
+npm i cors //allow frontend accsess backend api
+
+in .env file when connecting to MONGO_URL just add collection
+in models mongoDB will automaticly add to new collection 
+ex: model Device collection devices
