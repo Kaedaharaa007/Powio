@@ -30,9 +30,8 @@ function DeviceNote({name,status,location,usage,id}) {
   const handleDelete = async (e)=>{
     try {
       const res = await axios.delete(`http://localhost:8000/api/devices/${id}`)
+      navigate("/devices",{state:{refresh: true}})
       toast.success(res.data.message)
-      navigate("/devices")
-      window.location.reload()
     } catch (error) {
       console.log(error)
       toast.error('Failed to delete device')

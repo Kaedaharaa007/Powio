@@ -9,7 +9,9 @@ const app = express();
 
 app.use(bodyParser.json())
 app.use(cors({
-    origin:'http://localhost:5173'
+    origin:['http://localhost:5173',
+        'http://192.168.18.20:5173', //local network can be open from other devices in same network
+    ]
 }))
 
 dotenv.config()
@@ -18,7 +20,7 @@ const MONGO_URL = process.env.MONGO_URL
 
 mongoose.connect(MONGO_URL).then(()=>{
     console.log('MongoDB connected')
-    app.listen(PORT,()=>{
+    app.listen(PORT,'0.0.0.0',()=>{
         console.log(`Server is running on ${PORT}`)
     })
 }).catch((error)=>{

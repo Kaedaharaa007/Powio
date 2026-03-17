@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavigationBar from '../components/NavigationBar'
 import Header from '../components/Header'
 import useFetch from '../../util/useFetch.js'
@@ -6,10 +6,18 @@ import DeviceNote from '../components/DeviceNote.jsx'
 import AddDeviceBtn from '../components/AddDeviceBtn.jsx'
 import { NavLink, Outlet } from 'react-router'
 import NoDevices from '../components/NoDevices.jsx'
+import { useLocation } from 'react-router'
 
 function DevicesPage() {
 
   const {data,error,loading, refetch} = useFetch('http://localhost:8000/api/devices/')
+  const location = useLocation()
+
+  useEffect (()=>{
+    if(location.state?.refresh){
+      refetch()
+    }
+  },[location])
 
   if(loading) return(
     <div className='flex flex-col h-screen'>
@@ -21,7 +29,7 @@ function DevicesPage() {
 
   if(error) console.log(error)
 
-  const devices_list = data.map(device=>
+  const devices_list = data?.map(device=>
       <DeviceNote key={device.deviceId} name={device.name} status={device.status} 
       location={device.location} usage={device.usage} id={device.deviceId}></DeviceNote>
   )

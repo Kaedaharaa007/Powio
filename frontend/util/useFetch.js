@@ -7,23 +7,23 @@ function useFetch(url){
     const[error, setError] = useState(null);
     const[loading, setLoading] = useState(true);
 
-    useEffect(()=>{
-        setLoading(true)
-        axios.get(url)
-        .then((res)=>{
-            setData(res.data)
-            console.log(res.data)
-        })
-        .catch((error)=>{
+    const fetchData = async ()=>{
+        try {
+            setLoading(true)
+            const res = await axios.get(url)
+            setData(res.data)//we want only the data not whole respond 
+        } catch (error) {
             setError(error)
-            console.log(error)
-        })
-        .finally(()=>{
+        } finally{
             setLoading(false)
-        })
+        }
+    }
+
+    useEffect(()=>{
+        fetchData()
     },[url])
 
-    return {data, error, loading, refetch: useFetch}
+    return {data, error, loading, refetch: fetchData}
 }
 
 export default useFetch
