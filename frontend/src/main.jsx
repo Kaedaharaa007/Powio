@@ -32,6 +32,10 @@ const router = createBrowserRouter([
     path:'/devices/create',
     element: <CreatePage/>
   },
+  {
+    path:'/devices/:id',
+    element: <DevicesPage/>
+  },
 ])
 
 createRoot(document.getElementById('root')).render(

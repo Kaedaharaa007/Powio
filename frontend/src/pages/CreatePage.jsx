@@ -27,7 +27,7 @@ function CreatePage() {
         console.log("Clicked")
 
         try {
-            const res = await axios.post('http://localhost:8000/api/devices/create', device)
+            const res = await axios.post('http://localhost:8000/api/devices', device)
             console.log(res.data)
             toast.success("Device added succsessfully")
             navigate('/devices')

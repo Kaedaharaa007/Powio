@@ -2,8 +2,13 @@ import React, { useState } from 'react'
 import { GiElectric } from "react-icons/gi";
 import Button from './Button';
 import { MdDeleteOutline } from "react-icons/md";
+import { NavLink, useNavigate } from 'react-router';
+import toast from 'react-hot-toast'
+import axios from 'axios'
 
-function DeviceNote({name,status,location,usage}) {
+function DeviceNote({name,status,location,usage,id}) {
+
+  const navigate = useNavigate()
 
   const [deviceStatus, setStatus] = useState(status)
   function toggleStatus(){
@@ -22,8 +27,20 @@ function DeviceNote({name,status,location,usage}) {
       Offline
     </div>
 
+  const handleDelete = async (e)=>{
+    try {
+      const res = await axios.delete(`http://localhost:8000/api/devices/${id}`)
+      toast.success(res.data.message)
+      navigate("/devices")
+      window.location.reload()
+    } catch (error) {
+      console.log(error)
+      toast.error('Failed to delete device')
+    }
+  }
+
   return (
-    <div className='flex flex-col rounded-2xl bg-white p-3'>
+    <NavLink className='flex flex-col rounded-2xl bg-white p-3' to={`/devices/${id}`}>
       <div className='flex flex-row items-center gap-2 m-3'>
         <div className='flex rounded-2xl bg-[#7a9b76] w-10 h-10 items-center justify-center text-2xl'>
           <GiElectric className='text-white'/>
@@ -43,12 +60,12 @@ function DeviceNote({name,status,location,usage}) {
           <p>Power Usage</p>
           <p>{usage} W</p>
         </div>
-        <div className='flex flex-row w-fit border-red-500 border-2 ml-auto rounded-2xl p-1 text-red-500 cursor-pointer items-center justify-center mt-2'>
+        <button onClick={handleDelete} className='flex flex-row w-fit border-red-500 border-2 ml-auto rounded-2xl p-1 text-red-500 cursor-pointer items-center justify-center mt-2'>
           <MdDeleteOutline className='text-2xl'/>
           Delete device
-        </div>
+        </button>
       </div>
-    </div>
+    </NavLink>
   )
 }
 
